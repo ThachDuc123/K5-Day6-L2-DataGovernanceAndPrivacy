@@ -21,7 +21,7 @@ from src.pipeline import compute_refs, process, rank, review, run as run_poc, sc
 
 ROOT = Path(__file__).resolve().parents[1]
 FX = ROOT / "fixtures" / "t02_raw_qc"
-OWNER = "QA Lead — Group G00"
+OWNER = "NgocAnh (solo)"
 
 
 def make_ctx(tmp_path: Path, out_name: str = "out", pipeline_cfg: dict | None = None) -> RunContext:

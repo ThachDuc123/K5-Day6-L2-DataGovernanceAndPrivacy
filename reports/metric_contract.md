@@ -19,7 +19,7 @@
 | Chỉ số lỗi xấu (miss / false alarm / false reject) | False alarm trong top-B theo slice `light` (day/dusk/night) — ảnh sạch bị kéo vào top-B làm reviewer lãng phí budget |
 | Slices sẽ báo cáo (≥2) | (1) `light=day/dusk/night` — đặc biệt ảnh đêm hữu ích không bị flag; (2) `defect_type` (blur/glare/dark/compression); (3) `camera_id` cam_A vs cam_B (optics mềm) |
 | Cách báo độ bất định khi N nhỏ (Wilson CI / bootstrap) | Eval N=40, B=20: báo kèm số tuyệt đối (x/20) chứ không chỉ %; slice night chỉ có 8 ảnh eval → luôn kèm N trong bảng slice |
-| Ngày giờ chốt + người chốt | 2026-11-14 · QA Lead — Group G00 (trước khi nhìn bất kỳ kết quả eval nào; repo học viên không có `gt/`) |
+| Ngày giờ chốt + người chốt | 2026-11-14 · NgocAnh (bài cá nhân) (trước khi nhìn bất kỳ kết quả eval nào; repo học viên không có `gt/`) |
 
 Nếu baseline = 0 thì ghi rõ "baseline = 0" thay vì phần trăm cải thiện.
 

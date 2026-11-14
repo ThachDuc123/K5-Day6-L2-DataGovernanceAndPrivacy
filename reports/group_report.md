@@ -10,7 +10,7 @@
 |---|---|
 | Group ID | G00 |
 | Challenge | T02 · Raw QC Triage — ảnh mờ, lóa và thiếu sáng |
-| Thành viên (5–6) + vai trò | Điền tên thật vào `reports/team_contributions.csv` + Bảng 2 (mục 10) khi chốt nhóm: 1. ____ (Lead/Integrator) · 2. ____ (Data & fixtures) · 3. ____ (Core algorithm) · 4. ____ (QA/metric) · 5. ____ (Review + report) · 6. ____ |
+| Thành viên (5–6) + vai trò | **Bài cá nhân — 1 người:** NgocAnh (`thachduc1201@gmail.com`) đảm nhận toàn bộ vai trò: Lead/Integrator · Data & fixtures · Core algorithm · QA/metric · Review + report (đối chiếu `reports/team_contributions.csv` + `git shortlog -sne --all`) |
 | Git URL | https://github.com/ThachDuc123/K5-Day6-L2-DataGovernanceAndPrivacy |
 | Tag `demo-180m` (commit) | ____ (chạy `make tag-demo` khi freeze demo) |
 | Tag `final-24h` (commit) | ____ (chạy `make tag-final` khi nộp) |
@@ -102,7 +102,7 @@ Số nhóm tự đo được (không cần GT), từ `out/poc/ranked_review.csv`
 
 - **Review queue:** `out/poc/review_queue.csv` — top-B=20 theo `score` giảm dần, cột `reason` (diễn giải từng họ lỗi + z-score/tỷ lệ), `slice` = light, `evidence_path` = ảnh gốc; kèm **contact sheet offline** `out/poc/contact_sheet.html` (thumbnail base64, dropdown quyết định, nút Export CSV — xem `src/common/contact_sheet.py`).
 - **Cách override + audit log:** reviewer điền `reviewer`, `reviewer_decision` (approve/reject/edit/escalate/skip), `override_value`, `review_note` rồi lưu thành `out/poc/review_queue_reviewed.csv`; chạy lại `make run` → `review()` đọc file (thiếu reviewer → fail rõ ràng), `apply_overrides` ghi đè `pred_action`, mỗi thay đổi append 1 dòng JSONL vào `out/audit_log.jsonl` (actor/action/before/after/reason, append-only). Test: `tests/test_pipeline_t02.py::test_t02_review_override_changes_action_and_audits`.
-- **Decision policy + `reason_code` + owner:** GO (`DEFECT_RATE_WITHIN_TOLERANCE`) khi flag_rate ≤ 0.10; REWORK (`DEFECT_RATE_TOO_HIGH`) khi ≥ 0.35; HOLD (`DEFECT_RATE_NEEDS_REVIEW`) ở giữa. Owner = `QA Lead — Group G00` (config `owner`). Run hiện tại: flag_rate = 0.406 → **REWORK** với evidence là review queue (hợp lý: 39/96 ảnh lỗi hệ thống, không thể "release kèm review").
+- **Decision policy + `reason_code` + owner:** GO (`DEFECT_RATE_WITHIN_TOLERANCE`) khi flag_rate ≤ 0.10; REWORK (`DEFECT_RATE_TOO_HIGH`) khi ≥ 0.35; HOLD (`DEFECT_RATE_NEEDS_REVIEW`) ở giữa. Owner = `NgocAnh (solo)` (config `owner`). Run hiện tại: flag_rate = 0.406 → **REWORK** với evidence là review queue (hợp lý: 39/96 ảnh lỗi hệ thống, không thể "release kèm review").
 - **Khi nào HOLD/REWORK thay vì tự động release:** mọi flag_rate trong dừng mù (0.10–0.35); mọi run có `n_reviewed > 0` nhưng còn quyết định `escalate`; hoặc khi pool có camera/light chưa từng thấy ở dev (thống kê fallback) → bắt buộc HOLD.
 
 ## 08 · Reproduce & tests
@@ -132,16 +132,11 @@ pytest -q
 
 **Bảng 2 · Individual contribution evidence** (đối chiếu với `git shortlog -sne --all` và `reports/team_contributions.csv`)
 
-> Điền tên/email thật sau khi mọi thành viên commit; quy tắc rubric: mỗi người ≥1 commit thực chất (commit chỉ đổi khoảng trắng không tính).
+> Bài cá nhân — một người thực hiện toàn bộ; mỗi vai trò chứng minh bằng commit/diff tương ứng.
 
 | Học viên | Git author/email | Module / vai trò | Commit SHA / diff chứng minh | Trình bày? |
 |---|---|---|---|---|
-| Member 1 | (điền) | Integration / CLI · wiring config | | |
-| Member 2 | (điền) | Data + GT protocol · fixtures/provenance | | |
-| Member 3 | (điền) | Core algorithm (`src/pipeline.py`, `src/baseline.py`) | | |
-| Member 4 | (điền) | Metric + tests (`tests/test_pipeline_t02.py`) | | |
-| Member 5 | (điền) | Review queue + report + contact sheet | | |
-| Member 6 (nếu có) | (điền) | Research / ablation / debate | | |
+| NgocAnh | NgocAnh · thachduc1201@gmail.com | Toàn bộ: integration/config · data & provenance · core algorithm (`src/pipeline.py`, `src/baseline.py`) · metric + tests (`tests/test_pipeline_t02.py`) · review queue + report | `b019de6` + commit solo-config | NgocAnh |
 
 ## 11 · References
 
@@ -159,4 +154,4 @@ pytest -q
 - [x] Đúng 1 lệnh run (`python -m src.main ...` exit 0), 1 lệnh evaluate, 1 lệnh tests; không cần download khi chạy (offline guard, không model ngoài).
 - [x] Có baseline/PoC outputs + 3 failure cases phân tích bằng metadata + reviewer evidence (contact sheet, review queue) + decision log.
 - [x] Có license/source provenance (manifest sha256 verified), data splits, seed 42, offline environment, eval N ghi rõ trong metric contract.
-- [ ] Mỗi thành viên có ≥1 commit thực chất và được nêu minh bạch trong bảng trên (cần tên/email thật của nhóm).
+- [x] Bài cá nhân: NgocAnh có commit thực chất cho mọi phần (pipeline, baseline, tests, reports) và được nêu minh bạch trong bảng trên.

@@ -1,3 +1,5 @@
 ts,scope,status,canonical,reason_code,reason,owner,evidence
 2026-11-13T20:07:25+00:00,t02,REWORK,REWORK,DEFECT_RATE_TOO_HIGH,"Flagged rate 0.41 >= 0.35: capture session is systematically broken, recapture.",QA Lead — Group G00,out\poc\review_queue.csv
 2026-11-13T20:07:32+00:00,t02,REWORK,REWORK,DEFECT_RATE_TOO_HIGH,"Flagged rate 0.41 >= 0.35: capture session is systematically broken, recapture.",QA Lead — Group G00,out\poc\review_queue.csv
+2026-11-13T20:11:35+00:00,t02,REWORK,REWORK,DEFECT_RATE_TOO_HIGH,"Flagged rate 0.41 >= 0.35: capture session is systematically broken, recapture.",QA Lead — Group G00,out\poc\review_queue.csv
+2026-11-14T07:45:32+00:00,t02,REWORK,REWORK,DEFECT_RATE_TOO_HIGH,"Flagged rate 0.41 >= 0.35: capture session is systematically broken, recapture.",NgocAnh (solo),out\poc\review_queue.csv

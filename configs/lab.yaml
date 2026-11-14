@@ -1,9 +1,9 @@
 # ============================================================
-# Group config — G00 (Day06, track t02 · Raw QC Triage)
+# Solo submission — G00 (Day06, track t02 · Raw QC Triage)
 # Values here override the track defaults loaded from `track_config`.
 # ============================================================
 group_id: G00
-owner: "QA Lead — Group G00"       # signer of every Decision (change to a real name/role)
+owner: "NgocAnh (solo)"            # signer of every Decision
 track_config: tracks/t02.yaml
 track: t02
 input: fixtures/t02_raw_qc
