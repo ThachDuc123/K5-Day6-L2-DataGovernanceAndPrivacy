@@ -12,8 +12,8 @@
 | Challenge | T02 · Raw QC Triage — ảnh mờ, lóa và thiếu sáng |
 | Thành viên (5–6) + vai trò | **Bài cá nhân — 1 người:** NgocAnh (`thachduc1201@gmail.com`) đảm nhận toàn bộ vai trò: Lead/Integrator · Data & fixtures · Core algorithm · QA/metric · Review + report (đối chiếu `reports/team_contributions.csv` + `git shortlog -sne --all`) |
 | Git URL | https://github.com/ThachDuc123/K5-Day6-L2-DataGovernanceAndPrivacy |
-| Tag `demo-180m` (commit) | ____ (chạy `make tag-demo` khi freeze demo) |
-| Tag `final-24h` (commit) | ____ (chạy `make tag-final` khi nộp) |
+| Tag `demo-180m` (commit) | `demo-180m` → commit `b019de6` (PoC + baseline + tests + reports hoàn chỉnh) |
+| Tag `final-24h` (commit) | `final-24h` → commit `37ce216` (solo config + runs refreshed) |
 | Deadline (giờ VN) | ____ |
 
 ## 01 · Problem statement
