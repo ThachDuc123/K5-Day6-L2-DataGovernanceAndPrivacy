@@ -1,16 +1,40 @@
 # ============================================================
-# Group config — EDIT ME (one per group). Values here override
-# the track defaults loaded from `track_config`.
+# Group config — G00 (Day06, track t02 · Raw QC Triage)
+# Values here override the track defaults loaded from `track_config`.
 # ============================================================
-group_id: G00                     # e.g. G07
-owner: "TODO: tên người ký duyệt (role)"   # mandatory for every Decision
-track_config: tracks/t02.yaml     # pick your challenge: tracks/t01.yaml ... tracks/t14.yaml
-track: t02                        # must match track_config
-input: fixtures/t02_raw_qc        # or data/real/... if your instructor provided a real pack
+group_id: G00
+owner: "QA Lead — Group G00"       # signer of every Decision (change to a real name/role)
+track_config: tracks/t02.yaml
+track: t02
+input: fixtures/t02_raw_qc
 output: out/
 seed: 42
-offline: true                     # demo/eval must not touch the network
-strict_provenance: true           # fail if manifest.csv hashes do not match
+offline: true
+strict_provenance: true
 
-# Track params (merged over track_config.params). Freeze before evaluation.
-params: {}
+# ------------------------------------------------------------------
+# FROZEN params (chốt TRƯỚC khi xem kết quả eval; không tune lại sau).
+# Mọi ngưỡng đều được chọn từ thống kê split `dev` (không dùng nhãn,
+# không đụng split eval) — xem reports/metric_contract.md mục Threshold policy.
+# ------------------------------------------------------------------
+params:
+  budget: 20                     # review budget B (đúng contract T02)
+  dev_split: dev
+  stat_ref_split: dev            # mọi thống kê chuẩn hoá chỉ lấy từ split này
+  min_ref_n: 4                   # nhóm (camera, light) phải có >= 4 ảnh dev mới tin median
+  flag_threshold: 0.5            # score >= 0.5 -> RECAPTURE
+
+  weights:                       # trọng số từng họ lỗi trong score = max
+    blur: 1.0
+    dark: 1.0
+    glare: 1.0
+    compression: 1.0
+
+  blur: {z_scale: 4.0}           # z của log-Laplacian trong cùng camera_id (cam_B optics mềm)
+  dark: {ratio_floor: 0.45}      # mean / ref(cam, light) < 0.45 mới bắt đầu tính là tối
+  glare: {offset: 0.05, scale: 0.10}         # sat (global hoặc tile 4x4) > 0.15 -> glare
+  compression: {offset: 0.10, scale: 0.10}   # blockiness > 0.20 -> compression
+
+  decision:                      # policy GO/HOLD/REWORK theo tỷ lệ bị flag
+    go_max_flag_rate: 0.10
+    rework_min_flag_rate: 0.35

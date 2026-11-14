@@ -15,10 +15,26 @@ from src.common.offline import NetworkBlockedError, disable_offline_guard, enabl
 
 
 def test_template_pipeline_fails_clearly_not_silently(tmp_path):
+    # The group pipeline (src/pipeline.py) is implemented now, so a plain run must succeed...
     rc = runner.main(["--track", "t02", "--output", str(tmp_path), "--offline"])
-    assert rc == 3                                   # NotImplemented -> explicit exit code
+    assert rc == 0
     info = json.loads((tmp_path / "run_info.json").read_text())
-    assert info["status"] == 3 and info["seed"] == 42
+    assert info["status"] == 0 and info["seed"] == 42
+    # ...while an unimplemented pipeline module still fails loudly with exit code 3.
+    import sys, types
+    stub = types.ModuleType("src.stub_unimplemented")
+    def _run(ctx):
+        raise NotImplementedError("stub: process() not implemented")
+    stub.run = _run
+    sys.modules["src.stub_unimplemented"] = stub
+    try:
+        rc3 = runner.main(["--track", "t02", "--pipeline", "src.stub_unimplemented",
+                           "--output", str(tmp_path / "stub"), "--offline"])
+    finally:
+        sys.modules.pop("src.stub_unimplemented", None)
+    assert rc3 == 3                                  # NotImplemented -> explicit exit code
+    info3 = json.loads((tmp_path / "stub" / "run_info.json").read_text())
+    assert info3["status"] == 3
 
 
 def _run_baseline(out):
