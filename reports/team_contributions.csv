@@ -1,2 +1,2 @@
 member,git_author_name,git_email,role,modules_files,commit_shas,evidence_note,presenter
-NgocAnh,NgocAnh,thachduc1201@gmail.com,Solo — toàn bộ vai trò (Lead/Integrator · Data & fixtures · Core algorithm · QA/metric · Review + report),src/pipeline.py; src/baseline.py; configs/lab.yaml; tests/test_pipeline_t02.py; reports/*,b019de6 + commit này,Provenance fix (core.autocrlf) + PoC 4 họ lỗi + baseline + 7 test + reports,NgocAnh
+ThachDuc123,ThachDuc123,thachduc1201@gmail.com,Solo — toàn bộ vai trò (Lead/Integrator · Data & fixtures · Core algorithm · QA/metric · Review + report),src/pipeline.py; src/baseline.py; configs/lab.yaml; tests/test_pipeline_t02.py; reports/*,b019de6 + commit này,Provenance fix (core.autocrlf) + PoC 4 họ lỗi + baseline + 7 test + reports,NgocAnh
